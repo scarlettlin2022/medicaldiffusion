@@ -4,12 +4,13 @@ import os
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from torch.utils.data import DataLoader
-from ddpm.diffusion import default
+from ddpm.diffusion import default, 
 from vq_gan_3d.model import VQGAN
 from train.callbacks import ImageLogger, VideoLogger
 from train.get_dataset import get_dataset
 import hydra
 from omegaconf import DictConfig, open_dict
+
 
 
 @hydra.main(config_path='../config', config_name='base_cfg', version_base=None)
