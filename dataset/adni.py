@@ -17,8 +17,11 @@ import torchio as tio
 class ADNIDataset(Dataset):
     def __init__(self, root_dir='../ADNI', augmentation=False):
         self.root_dir = root_dir
-        self.file_names = glob.glob(os.path.join(
-            root_dir, './**/*.nii'), recursive=True)
+        '''self.file_names = glob.glob(os.path.join(
+            root_dir, '*.nii'), recursive=True)#./**/'''
+        self.file_names=os.listdir(self.root_dir)
+        
+
         self.augmentation = augmentation
 
     def __len__(self):
@@ -48,7 +51,7 @@ class ADNIDataset(Dataset):
 
     def __getitem__(self, index):
         path = self.file_names[index]
-        img = nib.load(path)
+        img = nib.load(os.path.join(self.root_dir,path))
 
         img = np.swapaxes(img.get_data(), 1, 2)
         img = np.flip(img, 1)

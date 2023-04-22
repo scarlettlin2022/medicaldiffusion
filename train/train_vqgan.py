@@ -2,6 +2,10 @@
 
 import os
 import sys
+
+import torch
+
+
 sys.path.append(os.getcwd())
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
@@ -62,6 +66,8 @@ def run(cfg: DictConfig):
                 log_folder = folder
         if len(log_folder) > 0:
             ckpt_folder = os.path.join(base_dir, log_folder, 'checkpoints')
+            if not os.path.exists(ckpt_folder):
+                os.makedirs(ckpt_folder)
             for fn in os.listdir(ckpt_folder):
                 if fn == 'latest_checkpoint.ckpt':
                     ckpt_file = 'latest_checkpoint_prev.ckpt'
@@ -94,4 +100,9 @@ def run(cfg: DictConfig):
 
 
 if __name__ == '__main__':
+    if torch.cuda.is_available():
+        print('GPU is available')
+    else:
+        print('GPU is not available')
+    torch.cuda.get_device_name(0)    
     run()
