@@ -1,10 +1,13 @@
 "Adapted from https://github.com/SongweiGe/TATS"
 
 import os
+import sys
+sys.path.append(os.getcwd())
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from torch.utils.data import DataLoader
-from ddpm.diffusion import default, 
+
+from ddpm.diffusion import default
 from vq_gan_3d.model import VQGAN
 from train.callbacks import ImageLogger, VideoLogger
 from train.get_dataset import get_dataset
